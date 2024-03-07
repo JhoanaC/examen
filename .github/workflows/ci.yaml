@@ -1,0 +1,27 @@
+name: 'poc-php'
+'on':
+    push:
+        branches:
+            - master
+            - develop
+    pull_request: null
+jobs:
+    lint:
+        strategy:
+            fail-fast: false
+            matrix:
+                operating-system:
+                    - ubuntu-latest
+                php-versions:
+                    - '7.3'
+        runs-on: '${{ matrix.operating-system }}'
+        name: 'Lint / PHP ${{ matrix.php-versions }} @ ${{ matrix.operating-system }}'
+        steps:
+          - name: 'Install PHP dependencies with Composer'
+            run: 'composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader'
+
+          - name: 'Linting PHP tests files'
+            run: 'php -l tests'
+
+          - name: 'Linting PHP '
+            run: 'php -l'
