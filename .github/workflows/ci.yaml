@@ -17,11 +17,11 @@ jobs:
         runs-on: '${{ matrix.operating-system }}'
         name: 'Lint / PHP ${{ matrix.php-versions }} @ ${{ matrix.operating-system }}'
         steps:
-          - name: 'Install PHP dependencies with Composer'
-            run: 'composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader'
+          - name: 'Install dependencies with Composer'
+            run: 'composer install --prefer-dist '
 
-          - name: 'Linting PHP tests files'
+          - name: 'Linting tests files'
             run: 'php -l tests'
 
-          - name: 'Linting PHP '
+          - name: 'Linting '
             run: 'php -l'
