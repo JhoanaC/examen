@@ -25,17 +25,11 @@ jobs:
     name: 'Lint and Test / PHP ${{ matrix.php-versions }} @ ${{ matrix.operating-system }}'
 
     steps:
-      - name: 'Install Composer'
-        run: |
-          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-          php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-          php -r "unlink('composer-setup.php');"
-
       - name: 'Install dependencies with Composer'
         run: 'composer install --prefer-dist'
 
       - name: 'Run Tests'
-        run: 'composer test'
+        run: 'composer test tests'
 
       - name: 'Run linters'
         run: composer lint srs
