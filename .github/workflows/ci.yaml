@@ -4,7 +4,10 @@ name: 'poc-php'
         branches:
             - master
             - develop
-    pull_request: null
+    pull_request: 
+        branches:
+            - main
+            - develop
 jobs:
     lint:
         strategy:
