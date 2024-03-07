@@ -23,8 +23,10 @@ jobs:
           - name: 'Install dependencies with Composer'
             run: 'composer install --prefer-dist '
 
-          - name: 'Linting tests files'
+          - name: 'Linter tests files'
             run: 'php -l tests'
 
-          - name: 'Linting '
-            run: 'php -l'
+          - name: Run linters
+            uses: wearerequired/lint-action@v2
+            with:
+              php_codesniffer: true
