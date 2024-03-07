@@ -35,7 +35,7 @@ jobs:
         run: 'composer install --prefer-dist'
 
       - name: 'Run Tests'
-        run: 'composer test ../../../../tests/ApiTest.php'
+        run: 'composer test'
 
       - name: 'Run linters'
         uses: wearerequired/lint-action@v2
