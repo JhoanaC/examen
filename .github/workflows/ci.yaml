@@ -28,14 +28,7 @@ jobs:
             run: 'composer install --prefer-dist '
 
           - name: PHPUnit Tests
-            uses: php-actions/phpunit@master
-            env:
-              TEST_NAME: Scarlett
-            with:
-              version: 9.6
-              bootstrap: vendor/autoload.php
-              configuration: test/phpunit.xml
-              args: --coverage-text
+            run: composer test
 
           - name: Run linters
             uses: wearerequired/lint-action@v2
