@@ -23,8 +23,15 @@ jobs:
           - name: 'Install dependencies with Composer'
             run: 'composer install --prefer-dist '
 
-          - name: 'Linter tests files'
-            run: 'php -l tests'
+          - name: PHPUnit Tests
+            uses: php-actions/phpunit@master
+            env:
+              TEST_NAME: Scarlett
+            with:
+              version: 9.6
+              bootstrap: vendor/autoload.php
+              configuration: test/phpunit.xml
+              args: --coverage-text
 
           - name: Run linters
             uses: wearerequired/lint-action@v2
