@@ -38,6 +38,4 @@ jobs:
         run: 'composer test'
 
       - name: 'Run linters'
-        uses: wearerequired/lint-action@v2
-        with:
-          php_codesniffer: true
+        run: composer lint srs
