@@ -1,36 +1,43 @@
 name: 'poc-php'
-'on':
-    push:
-        branches:
-            - master
-            - develop
-    pull_request: 
-        branches:
-            - main
-            - develop
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
 jobs:
-    lint:
-        strategy:
-            fail-fast: false
-            matrix:
-                operating-system:
-                    - ubuntu-latest
-                php-versions:
-                    - '7.3'
-        runs-on: '${{ matrix.operating-system }}'
-        name: 'Lint / PHP ${{ matrix.php-versions }} @ ${{ matrix.operating-system }}'
-        steps:
-          - uses: actions/checkout@v3
+  lint-and-test:
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-system:
+          - ubuntu-latest
+        php-versions:
+          - '7.3'
 
-          - uses: php-actions/composer@v6
+    runs-on: '${{ matrix.operating-system }}'
 
-          - name: 'Install dependencies with Composer'
-            run: 'composer install --prefer-dist '
+    name: 'Lint and Test / PHP ${{ matrix.php-versions }} @ ${{ matrix.operating-system }}'
 
-          - name: PHPUnit Tests
-            run: composer test
+    steps:
+      - name: 'Install Composer'
+        run: |
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+          php -r "unlink('composer-setup.php');"
 
-          - name: Run linters
-            uses: wearerequired/lint-action@v2
-            with:
-              php_codesniffer: true
+      - name: 'Install dependencies with Composer'
+        run: 'composer install --prefer-dist'
+
+      - name: 'Run Tests'
+        run: 'composer test'
+
+      - name: 'Run linters'
+        uses: wearerequired/lint-action@v2
+        with:
+          php_codesniffer: true
